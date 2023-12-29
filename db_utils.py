@@ -16,19 +16,21 @@ class RDSDatabaseConnector:
         #DATABASE_TYPE = 'postgresql'
         #DBAPI = 'psycopg2'
         engine = create_engine(f"postgresql://{self.db_connector['RDS_USER']}:{self.db_connector['RDS_PASSWORD']}@{self.db_connector['RDS_HOST']}:{self.db_connector['RDS_PORT']}/{self.db_connector['RDS_DATABASE']}")
-    
+        #engine.execution_options(isolation_level='AUTOCOMMIT').connect()
 
         #return engine
         return engine.execution_options(isolation_level='AUTOCOMMIT').connect()
     
     def extract_data(self):
-        self.conn = psycopg2.connect(   #figure out how to use init_engine here
-            host=self.db_connector['RDS_HOST'],
-            port=self.db_connector['RDS_PORT'],
-            database=self.db_connector['RDS_DATABASE'],
-            user=self.db_connector['RDS_USER'],
-            password=self.db_connector['RDS_PASSWORD']
-        )
+        self.conn = self.init_engine()
+        
+        #self.conn = psycopg2.connect(   #figure out how to use init_engine here
+            #host=self.db_connector['RDS_HOST'],
+            #port=self.db_connector['RDS_PORT'],
+            #database=self.db_connector['RDS_DATABASE'],
+            #user=self.db_connector['RDS_USER'],
+            #password=self.db_connector['RDS_PASSWORD']
+        #)
         cursor = self.conn.cursor()
 
         select_query = "SELECT * FROM loan_payments"
