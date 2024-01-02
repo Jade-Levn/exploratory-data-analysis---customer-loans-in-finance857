@@ -5,7 +5,6 @@ import yaml
 import psycopg2
 import pandas as pd
 
-
 with open('credentials.yaml', 'r') as cred_file:
     db_connector = yaml.safe_load(cred_file)
 class RDSDatabaseConnector:
@@ -28,7 +27,6 @@ class RDSDatabaseConnector:
     def df_to_csv(self):
         self.loan_df.to_csv("loans.csv")
 
-
-rds_database_connector = RDSDatabaseConnector(db_connector)
-rds_database_connector.extract_data()
-rds_database_connector.df_to_csv()
+#rds_database_connector = RDSDatabaseConnector(db_connector)
+#rds_database_connector.extract_data()
+#rds_database_connector.df_to_csv()
